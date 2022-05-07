@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { useLanguages } from "./Context";
 
 function App() {
+  const [newLanguage, setNewLanguage] = useState("");
+
+  const { languages, addLanguages } = useLanguages();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ul>
+        {languages.map((language) => (
+          <li>{language}</li>
+        ))}
+      </ul>
+      <div>
+        <input
+          type="text"
+          value={newLanguage}
+          onChange={(e) => setNewLanguage(e.target.value)}
+        />
+        <button type="button" onClick={() => addLanguages(newLanguage)}>
+          Adicionar linguagem
+        </button>
+      </div>
     </div>
   );
 }
